@@ -1,0 +1,60 @@
+<div #canvasbox class="container canvasbox" (window:resize)="onResize($event)">
+  <canvas #canvasvideo id="canvasvideo" class="canvasvideo">Unsupport webgl</canvas>
+  <div class="videoEdge" #videoEdge>
+    <video id="my-video" #video class="video-js video-fluid vjs-fluid vjs-big-play-centered" crossorigin="anonymous">
+      <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+  </div>
+  <canvas #canvasdraw id="canvasdraw" class="canvasdraw">Unsupport webgl</canvas>
+  <div class="big-play-btn-area">
+    <label class="big-play-btn" (click)="bigBtnPlay()"></label>
+  </div>
+  <div class="player-control-menu">
+    <div class="left-btn">
+      <ng-container *ngIf="isMute">
+        <label class="player-btn mute-btn" (click)="changeSoundStatus()"></label>
+      </ng-container>
+      <ng-container *ngIf="!isMute">
+        <label class="player-btn sound-btn" (click)="changeSoundStatus()"></label>
+      </ng-container>
+    </div>
+    <div class="center-btn">
+      <label class="player-btn stop-btn" (click)="diyStop()"></label>
+      <label class="player-btn back-btn"></label>
+      <ng-container *ngIf="isPlaying">
+        <label class="player-btn pause-btn" (click)="diyPause()"></label>
+      </ng-container>
+      <ng-container *ngIf="!isPlaying">
+        <label class="player-btn play-btn" (click)="diyPlay()"></label>
+      </ng-container>
+      <label class="player-btn front-btn"></label>
+      <label class="player-btn next-btn"></label>
+    </div>
+    <div class="right-btn">
+      <select class='stream-selector'>
+        <option>①</option>
+        <option>②</option>
+        <option>③</option>
+      </select>
+      <label class="player-btn snap-btn" (click)="postSnapSignal()">&nbsp;</label>
+      <label [ngClass]="{'player-btn': true, 'start-record-btn': !isRecording, 'recording-btn': isRecording}" (click)="alertRecordingStatus()" title="{{ getRecordingTitle(isRecording) | translate}}">&nbsp;</label>
+    </div>
+  </div>
+  <!-- <div class="w-100">&nbsp;</div> -->
+  <div class="mt-1">
+    <ng-container *ngIf="!isDrawing && !expendBtn.undraw">
+      <button class="blue-btn" (click)="onAdd()">{{ 'drawMask' | translate}}</button>
+    </ng-container>
+    <ng-container *ngIf="isDrawing && !expendBtn.undraw">
+        <button class="blue-btn" (click)="onAdd()">{{ 'stopDrawing' | translate}}</button>
+    </ng-container>
+    <ng-container *ngIf="expendBtn.all">
+      <button class="blue-btn" (click)="drawWholeMask()">{{ 'drawWhole' | translate}}</button>
+    </ng-container>
+    <button class="blue-btn" (click)="onDel()">{{ 'del' | translate }}</button>
+    <ng-container *ngIf="expendBtn.save">
+      <button class="blue-btn" (click)="onSave()">{{ 'save' | translate}}</button>
+    </ng-container>
+  </div>
+</div>
+

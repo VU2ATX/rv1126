@@ -1,0 +1,14 @@
+eptz V0.1.1：
+【主要更新】
+1.添加日志打印，通过export eptz_log_level=3动态打开debug信息
+2.其他已知问题修改
+
+eptz V0.0.1：
+【主要更新】
+1.头文件eptz_algorithm.h，包含初始化接口和范围计算接口
+2.头文件eptz_type.h, 相关数据结构体定义
+
+使用说明
+1. 初始化调用一次eptzConfigInit，传入EptzInitInfo参数。
+2. 后续在每次计算出NN数据后调用calculateClipRect，传入转换好的EptzAiData，以及接收范围计算结果的int32 *output_result指针。
+3. 获取*output_result参数作为rga dst范围，进行裁剪。
